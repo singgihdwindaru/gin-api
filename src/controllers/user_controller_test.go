@@ -68,14 +68,15 @@ func TestSignIn(t *testing.T) {
 	}
 
 	gin.SetMode(gin.TestMode)
-	r := gin.Default()
+	r := gin.New()
+	r.Use(gin.Recovery()) // Recovery middleware recovers from any panics and writes a 500 if there was one.
 	NewUserController(r, userUsecaseMock)
 
 	for _, test := range testCases {
 		t.Run(test.name, func(t *testing.T) {
-			w := httptest.NewRecorder()
-			req, _ := http.NewRequest(http.MethodPost, "/signin", strings.NewReader(test.Request))
 			test.mock()
+			w := httptest.NewRecorder()
+			req := httptest.NewRequest(http.MethodPost, "/signin", strings.NewReader(test.Request))
 			r.ServeHTTP(w, req)
 			assert.Equal(t, test.wantResult, w.Body.String())
 		})
