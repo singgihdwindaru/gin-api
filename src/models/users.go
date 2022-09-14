@@ -1,21 +1,24 @@
 package models
 
-import "time"
+import (
+	"context"
+	"time"
+)
 
 type (
-	UserRepository interface {
-		InsertUser(email, name, password string) error
-		GetUserByEmailAndPassword(username, password string) (*User, error)
+	IUserRepository interface {
+		InsertUser(ctx context.Context, email, name, password string) error
+		GetUserByEmailAndPassword(ctx context.Context, username, password string) (*User, error)
 	}
 
-	UserUsecase interface {
-		CreateUser(request UserRequest) (int64, error)
-		Login(username, password string) (*UserReponse, error)
+	IUserUsecase interface {
+		CreateUser(ctx context.Context, request UserRequest) (int64, error)
+		Login(ctx context.Context, request LoginRequest) (*UserReponse, error)
 	}
 )
 type (
 	User struct {
-		Id         string     `json:"id"`
+		Id         int64      `json:"id"`
 		Email      string     `json:"email"`
 		Name       string     `json:"name"`
 		CreatedAt  time.Time  `json:"createdAt"`
@@ -25,13 +28,18 @@ type (
 	}
 
 	UserReponse struct {
-		Id    string `json:"id"`
+		Id    int64  `json:"id"`
 		Email string `json:"email"`
 		Name  string `json:"name"`
 	}
 
+	LoginRequest struct {
+		Email    string `binding:"required" json:"email"`
+		Password string `binding:"required" json:"password"`
+	}
 	UserRequest struct {
-		Email    string `json:"email"`
-		Password string `json:"password"`
+		Name     string `binding:"required" json:"name"`
+		Email    string `binding:"required" json:"email"`
+		Password string `binding:"required" json:"password"`
 	}
 )

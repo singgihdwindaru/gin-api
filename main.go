@@ -1,16 +1,8 @@
 package main
 
-import (
-	"net/http"
+import "gin-api/src/routers"
 
-	"github.com/gin-gonic/gin"
-)
-
-func HomepageHandler(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"message": "Welcome to the Tech Company listing API with Golang"})
-}
 func main() {
-	router := gin.Default()
-	router.GET("/", HomepageHandler)
-	router.Run()
+	r := routers.SetupRouter()
+	r.Run(":8080")
 }
