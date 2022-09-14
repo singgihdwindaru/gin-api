@@ -5,11 +5,10 @@ import (
 )
 
 func FactorialNumber(param int64) (result int64, err error) {
-	result = 1
+	result = param
 	if param == 1 || param == 0 {
 		return
 	}
-
 	data, err := FactorialNumber(param - 1)
 	result = result * data
 	return
