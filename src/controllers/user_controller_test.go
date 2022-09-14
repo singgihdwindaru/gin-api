@@ -69,7 +69,7 @@ func TestSignIn(t *testing.T) {
 
 	gin.SetMode(gin.TestMode)
 	r := gin.New()
-	r.Use(gin.Recovery())
+	r.Use(gin.Recovery()) // Recovery middleware recovers from any panics and writes a 500 if there was one.
 	NewUserController(r, userUsecaseMock)
 
 	for _, test := range testCases {
