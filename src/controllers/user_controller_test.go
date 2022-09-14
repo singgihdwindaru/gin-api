@@ -83,7 +83,7 @@ func TestSignIn(t *testing.T) {
 }
 
 func TestCreateRequest(t *testing.T) {
-	// Diabaikan aja yg func test ini, gue buat karena males ngetik json requestnya :)
+	// Diabaikan test ini, gue buat karena males ngetik json requestnya :)
 	m := models.LoginRequest{
 		Email:    "dummy@dummy.com",
 		Password: "dummy",
@@ -92,7 +92,7 @@ func TestCreateRequest(t *testing.T) {
 	log.Println(string(jsonReq))
 }
 func TestCreateResponse(t *testing.T) {
-	// Diabaikan aja yg func test ini, gue buat karena males ngetik json responsenya :)
+	// Diabaikan func test ini, gue buat karena males ngetik json responsenya :)
 	resp := models.UserReponse{
 		Id:    1,
 		Email: "dummy@dummy.com",
